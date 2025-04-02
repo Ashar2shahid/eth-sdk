@@ -49,6 +49,22 @@ export const predefinedExplorerEndpoints: PredefinedExplorerEndpoints = {
     url: makeAbiPubUrl(NetworkID.CELO),
     apiKey: '',
   },
+  sonic: {
+    url: makeAbiPubUrl(NetworkID.SONIC),
+    apiKey: '',
+  },
+  berachain: {
+    url: makeAbiPubUrl(NetworkID.BERACHAIN),
+    apiKey: '',
+  },
+  mantle: {
+    url: makeAbiPubUrl(NetworkID.MANTLE),
+    apiKey: '',
+  },
+  zkevm: {
+    url: makeAbiPubUrl(NetworkID.ZKEVM),
+    apiKey: '',
+  },
 }
 
 interface PredefinedExplorerEndpoints extends Record<PredefinedNetworkSymbol, ExplorerEndpointConfig> {}

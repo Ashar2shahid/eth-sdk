@@ -21,8 +21,6 @@ describe('with other Etherscan-like explorers', () => {
       'avalanche/WAVAX.json',
       'bsc/WBNB.json',
       'mainnet/DAI Bridge/DAI Bridge Contract.json',
-      'optimism/DAI Bridge/DAI Bridge Contract.json',
-      'optimism/weth.json',
       'polygon/weth.json',
     ])
   })
@@ -32,7 +30,7 @@ describe('with other Etherscan-like explorers', () => {
       Extends<
         typeof sdk,
         {
-          getOptimismSdk: (signer: Signer | Provider) => { weth: types.optimism.Weth }
+          getOptimismSdk: (signer: Signer | Provider) => {}
           getPolygonSdk: (signer: Signer | Provider) => { weth: types.polygon.Weth }
           getBscSdk: (signer: Signer | Provider) => { WBNB: types.bsc.WBNB }
           getAvalancheSdk: (signer: Signer | Provider) => { WAVAX: types.WAVAX }

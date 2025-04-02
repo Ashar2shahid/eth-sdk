@@ -1,5 +1,5 @@
 import { expect, mockFn } from 'earljs'
-import proxyquire = require('proxyquire')
+import proxyquire from 'proxyquire'
 import { assert, noop } from 'ts-essentials'
 
 import { createEthSdkConfig, EthSdkConfig, EthSdkConfigInput, EthSdkContracts, parseAddress } from '.'
