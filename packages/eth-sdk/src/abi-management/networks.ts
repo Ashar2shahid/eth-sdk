@@ -1,11 +1,8 @@
 import { invert } from 'lodash'
 import { Opaque, SafeDictionary } from 'ts-essentials'
 
-// note: copied from https://github.com/nomiclabs/hardhat/blob/master/packages/hardhat-etherscan/src/network/prober.ts
 export enum NetworkID {
   MAINNET = 1,
-  HOLESKY = 17000,
-  SEPOLIA = 11155111,
   GNOSIS = 100,
   BASE = 8453,
   BSC = 56,
@@ -14,6 +11,13 @@ export enum NetworkID {
   ARBITRUM_ONE = 42161,
   AVALANCHE = 43114,
   CELO = 42220,
+  SONIC = 146,
+  BERACHAIN = 80094,
+  MANTLE = 5000,
+  HOLESKY = 17000,
+  SEPOLIA = 11155111,
+  BASE_SEPOLIA = 84532,
+  ZKEVM = 1101,
 }
 
 export const networkIDtoSymbol = {
@@ -28,6 +32,10 @@ export const networkIDtoSymbol = {
   [NetworkID.ARBITRUM_ONE]: 'arbitrumOne',
   [NetworkID.AVALANCHE]: 'avalanche',
   [NetworkID.CELO]: 'celo',
+  [NetworkID.SONIC]: 'sonic',
+  [NetworkID.BERACHAIN]: 'berachain',
+  [NetworkID.MANTLE]: 'mantle',
+  [NetworkID.ZKEVM]: 'zkevm',
 } as const
 
 export type UserProvidedNetworkSymbol = Opaque<string, 'UserProvidedNetworkSymbol'>
