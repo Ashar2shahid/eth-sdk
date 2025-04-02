@@ -1,5 +1,11 @@
 # @gnosis-guild/eth-sdk
 
+## 0.3.8
+
+### Patch Changes
+
+- 5a01259: feat: add native support for sonic, berachain, mantle, zkevm
+
 ## 0.3.7
 
 ### Patch Changes
