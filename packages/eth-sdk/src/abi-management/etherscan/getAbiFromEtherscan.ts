@@ -1,14 +1,19 @@
-import type { Address, EthSdkConfig } from '../../config'
+import type { Address, NetworkIds } from '../../config'
 import { FetchJson } from '../../peripherals/fetchJson'
 import type { Abi } from '../../types'
 import type { URLString } from '../../utils/utility-types'
 import { isUserProvidedNetwork, NetworkSymbol, symbolToNetworkId } from '../networks'
-import { ExplorerEndpointConfig, predefinedExplorerEndpoints, UserEtherscanURLs } from './explorerEndpoints'
+import {
+  ExplorerEndpointConfig,
+  predefinedExplorerEndpoints,
+  UserEtherscanKeys,
+  UserEtherscanURLs,
+} from './explorerEndpoints'
 
 export async function getAbiFromEtherscan(
   networkSymbol: NetworkSymbol,
   address: Address,
-  config: EthSdkConfig,
+  config: EtherscanConfig,
   fetch: FetchJson<EtherscanResponse>,
 ): Promise<Abi> {
   const url = createAPIUrl(networkSymbol, address, config)
@@ -27,7 +32,7 @@ export async function getAbiFromEtherscan(
 function createAPIUrl(
   networkSymbol: NetworkSymbol,
   address: Address,
-  { etherscanKeys, etherscanURLs, etherscanKey, networkIds }: EthSdkConfig,
+  { etherscanKeys, etherscanURLs, etherscanKey, networkIds }: EtherscanConfig,
 ) {
   const networkId = isUserProvidedNetwork(networkSymbol, networkIds)
     ? networkIds[networkSymbol]
@@ -63,4 +68,11 @@ export interface EtherscanResponse {
   status: string | number // NOTE: sometimes it's a string, sometimes it's a number
   result: string
   message: 'OK' | 'NOTOK'
+}
+
+interface EtherscanConfig {
+  etherscanKey?: string | undefined
+  etherscanKeys: UserEtherscanKeys
+  etherscanURLs: UserEtherscanURLs
+  networkIds: NetworkIds
 }

@@ -14,7 +14,7 @@ describe(getAbiFromEtherscan.name, () => {
     const actual = await getAbiFromEtherscan(
       'mainnet',
       DAI_ADDRESS,
-      { etherscanKey: apiKey, etherscanKeys: {}, etherscanURLs: {} },
+      { etherscanKey: apiKey, etherscanKeys: {}, etherscanURLs: {}, networkIds: {} },
       fetch,
     )
 
@@ -60,6 +60,7 @@ describe(getAbiFromEtherscan.name, () => {
     const config = {
       etherscanURLs: {},
       etherscanKeys: { mainnet: 'one-mainnet-key', polygon: 'two-polygon-key' },
+      networkIds: {},
     }
 
     await getAbiFromEtherscan('mainnet', ADDRESS_ZERO, config, fetch)
@@ -78,7 +79,7 @@ describe(getAbiFromEtherscan.name, () => {
   it('uses predefined API key', async () => {
     const fetch = mockEndpoint()
 
-    const config = { etherscanURLs: {}, etherscanKeys: {} }
+    const config = { etherscanURLs: {}, etherscanKeys: {}, networkIds: {} }
 
     await getAbiFromEtherscan('avalanche', ADDRESS_ZERO, config, fetch)
 
