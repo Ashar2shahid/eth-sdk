@@ -41,13 +41,16 @@ describe(getAbiFromEtherscan.name, () => {
         etherscanKey: apiKey,
         etherscanURLs,
         etherscanKeys: { [symbol]: 'This should not be used if config.etherscanKey is specified.' },
+        networkIds: {
+          [symbol]: 12345678,
+        },
       },
       fetch,
     )
 
     expect(actual).toEqual(RETURNED_ABI)
     expect(fetch).toHaveBeenCalledWith([
-      `https://dethcryptoscan.test/api/v1?module=contract&action=getabi&address=${ADDRESS_ZERO}&apikey=${apiKey}`,
+      `https://dethcryptoscan.test/api/v1?chainid=1&module=contract&action=getabi&address=${ADDRESS_ZERO}&apikey=${apiKey}`,
     ])
   })
 

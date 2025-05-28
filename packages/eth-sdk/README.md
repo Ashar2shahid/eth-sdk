@@ -193,8 +193,6 @@ Output directory for generated SDK.
 
 Etherscan API keys
 
-**Defaults to eth-sdk's own keys.**
-
 ```json
 {
   "etherscanKeys": {
@@ -254,7 +252,7 @@ One of `"etherscan"`, `"sourcify"`. Specifies the source to fetch contract ABIs 
 
 ### `networkIds`
 
-As Sourcify `/files` endpoint requires network identifier, you will need to provide one when using a custom network.
+As Sourcify and Etherscan endpoints requires network IDs, you will need to provide them when using a custom network.
 
 ```json
 {

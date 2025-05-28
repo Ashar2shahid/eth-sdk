@@ -1,19 +1,14 @@
-import type { Address } from '../../config'
+import type { Address, EthSdkConfig } from '../../config'
 import { FetchJson } from '../../peripherals/fetchJson'
 import type { Abi } from '../../types'
 import type { URLString } from '../../utils/utility-types'
-import { isUserProvidedNetwork, NetworkSymbol } from '../networks'
-import {
-  ExplorerEndpointConfig,
-  predefinedExplorerEndpoints,
-  UserEtherscanKeys,
-  UserEtherscanURLs,
-} from './explorerEndpoints'
+import { isUserProvidedNetwork, NetworkSymbol, symbolToNetworkId } from '../networks'
+import { ExplorerEndpointConfig, predefinedExplorerEndpoints, UserEtherscanURLs } from './explorerEndpoints'
 
 export async function getAbiFromEtherscan(
   networkSymbol: NetworkSymbol,
   address: Address,
-  config: EtherscanConfig,
+  config: EthSdkConfig,
   fetch: FetchJson<EtherscanResponse>,
 ): Promise<Abi> {
   const url = createAPIUrl(networkSymbol, address, config)
@@ -32,19 +27,22 @@ export async function getAbiFromEtherscan(
 function createAPIUrl(
   networkSymbol: NetworkSymbol,
   address: Address,
-  { etherscanKeys, etherscanURLs, etherscanKey }: EtherscanConfig,
+  { etherscanKeys, etherscanURLs, etherscanKey, networkIds }: EthSdkConfig,
 ) {
+  const networkId = isUserProvidedNetwork(networkSymbol, networkIds)
+    ? networkIds[networkSymbol]
+    : symbolToNetworkId[networkSymbol]
+
   const apiKey =
     etherscanKey ||
     etherscanKeys[networkSymbol] ||
     (predefinedExplorerEndpoints as { [K in string]?: ExplorerEndpointConfig })[networkSymbol]?.apiKey
 
-  const apiUrl = getEtherscanLinkFromNetworkSymbol(networkSymbol, etherscanURLs)
-  if (!apiUrl) {
-    throw new Error(`Can't find network info for ${networkSymbol}`)
-  }
+  const apiUrl = getEtherscanLinkFromNetworkSymbol(networkSymbol, etherscanURLs) ?? 'https://api.etherscan.io/api'
 
-  return `${apiUrl}?module=contract&action=getabi&address=${address}${apiKey ? `&apikey=${apiKey}` : ''}`
+  return `${apiUrl}?chainid=${networkId}&module=contract&action=getabi&address=${address}${
+    apiKey ? `&apikey=${apiKey}` : ''
+  }`
 }
 
 function getEtherscanLinkFromNetworkSymbol(
@@ -65,10 +63,4 @@ export interface EtherscanResponse {
   status: string | number // NOTE: sometimes it's a string, sometimes it's a number
   result: string
   message: 'OK' | 'NOTOK'
-}
-
-interface EtherscanConfig {
-  etherscanKey?: string | undefined
-  etherscanKeys: UserEtherscanKeys
-  etherscanURLs: UserEtherscanURLs
 }
