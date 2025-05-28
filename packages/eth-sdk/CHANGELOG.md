@@ -1,5 +1,11 @@
 # @gnosis-guild/eth-sdk
 
+## 0.3.9
+
+### Patch Changes
+
+- d05a666: feat: support etherscan v2 API
+
 ## 0.3.8
 
 ### Patch Changes
