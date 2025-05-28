@@ -7,9 +7,9 @@ exports.Mkr__factory = void 0;
 const ethers_1 = require("ethers");
 const _abi = [
     {
-        constant: true,
-        inputs: [],
         name: "name",
+        type: "function",
+        inputs: [],
         outputs: [
             {
                 name: "",
@@ -17,20 +17,21 @@ const _abi = [
             },
         ],
         payable: false,
+        constant: true,
         stateMutability: "view",
-        type: "function",
     },
     {
-        constant: false,
-        inputs: [],
         name: "stop",
+        type: "function",
+        inputs: [],
         outputs: [],
         payable: false,
+        constant: false,
         stateMutability: "nonpayable",
-        type: "function",
     },
     {
-        constant: false,
+        name: "approve",
+        type: "function",
         inputs: [
             {
                 name: "guy",
@@ -41,7 +42,6 @@ const _abi = [
                 type: "uint256",
             },
         ],
-        name: "approve",
         outputs: [
             {
                 name: "",
@@ -49,27 +49,27 @@ const _abi = [
             },
         ],
         payable: false,
+        constant: false,
         stateMutability: "nonpayable",
-        type: "function",
     },
     {
-        constant: false,
+        name: "setOwner",
+        type: "function",
         inputs: [
             {
                 name: "owner_",
                 type: "address",
             },
         ],
-        name: "setOwner",
         outputs: [],
         payable: false,
+        constant: false,
         stateMutability: "nonpayable",
-        type: "function",
     },
     {
-        constant: true,
-        inputs: [],
         name: "totalSupply",
+        type: "function",
+        inputs: [],
         outputs: [
             {
                 name: "",
@@ -77,11 +77,12 @@ const _abi = [
             },
         ],
         payable: false,
+        constant: true,
         stateMutability: "view",
-        type: "function",
     },
     {
-        constant: false,
+        name: "transferFrom",
+        type: "function",
         inputs: [
             {
                 name: "src",
@@ -96,7 +97,6 @@ const _abi = [
                 type: "uint256",
             },
         ],
-        name: "transferFrom",
         outputs: [
             {
                 name: "",
@@ -104,13 +104,13 @@ const _abi = [
             },
         ],
         payable: false,
+        constant: false,
         stateMutability: "nonpayable",
-        type: "function",
     },
     {
-        constant: true,
-        inputs: [],
         name: "decimals",
+        type: "function",
+        inputs: [],
         outputs: [
             {
                 name: "",
@@ -118,11 +118,12 @@ const _abi = [
             },
         ],
         payable: false,
+        constant: true,
         stateMutability: "view",
-        type: "function",
     },
     {
-        constant: false,
+        name: "mint",
+        type: "function",
         inputs: [
             {
                 name: "guy",
@@ -133,49 +134,48 @@ const _abi = [
                 type: "uint256",
             },
         ],
-        name: "mint",
         outputs: [],
         payable: false,
+        constant: false,
         stateMutability: "nonpayable",
-        type: "function",
     },
     {
-        constant: false,
+        name: "burn",
+        type: "function",
         inputs: [
             {
                 name: "wad",
                 type: "uint256",
             },
         ],
-        name: "burn",
         outputs: [],
         payable: false,
+        constant: false,
         stateMutability: "nonpayable",
-        type: "function",
     },
     {
-        constant: false,
+        name: "setName",
+        type: "function",
         inputs: [
             {
                 name: "name_",
                 type: "bytes32",
             },
         ],
-        name: "setName",
         outputs: [],
         payable: false,
+        constant: false,
         stateMutability: "nonpayable",
-        type: "function",
     },
     {
-        constant: true,
+        name: "balanceOf",
+        type: "function",
         inputs: [
             {
                 name: "src",
                 type: "address",
             },
         ],
-        name: "balanceOf",
         outputs: [
             {
                 name: "",
@@ -183,13 +183,13 @@ const _abi = [
             },
         ],
         payable: false,
+        constant: true,
         stateMutability: "view",
-        type: "function",
     },
     {
-        constant: true,
-        inputs: [],
         name: "stopped",
+        type: "function",
+        inputs: [],
         outputs: [
             {
                 name: "",
@@ -197,27 +197,27 @@ const _abi = [
             },
         ],
         payable: false,
+        constant: true,
         stateMutability: "view",
-        type: "function",
     },
     {
-        constant: false,
+        name: "setAuthority",
+        type: "function",
         inputs: [
             {
                 name: "authority_",
                 type: "address",
             },
         ],
-        name: "setAuthority",
         outputs: [],
         payable: false,
+        constant: false,
         stateMutability: "nonpayable",
-        type: "function",
     },
     {
-        constant: true,
-        inputs: [],
         name: "owner",
+        type: "function",
+        inputs: [],
         outputs: [
             {
                 name: "",
@@ -225,13 +225,13 @@ const _abi = [
             },
         ],
         payable: false,
+        constant: true,
         stateMutability: "view",
-        type: "function",
     },
     {
-        constant: true,
-        inputs: [],
         name: "symbol",
+        type: "function",
+        inputs: [],
         outputs: [
             {
                 name: "",
@@ -239,66 +239,44 @@ const _abi = [
             },
         ],
         payable: false,
+        constant: true,
         stateMutability: "view",
-        type: "function",
     },
     {
-        constant: false,
-        inputs: [
-            {
-                name: "guy",
-                type: "address",
-            },
-            {
-                name: "wad",
-                type: "uint256",
-            },
-        ],
         name: "burn",
-        outputs: [],
-        payable: false,
-        stateMutability: "nonpayable",
         type: "function",
-    },
-    {
-        constant: false,
         inputs: [
+            {
+                name: "guy",
+                type: "address",
+            },
             {
                 name: "wad",
                 type: "uint256",
             },
         ],
+        outputs: [],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
         name: "mint",
-        outputs: [],
-        payable: false,
-        stateMutability: "nonpayable",
         type: "function",
-    },
-    {
-        constant: false,
         inputs: [
-            {
-                name: "dst",
-                type: "address",
-            },
             {
                 name: "wad",
                 type: "uint256",
             },
         ],
+        outputs: [],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
         name: "transfer",
-        outputs: [
-            {
-                name: "",
-                type: "bool",
-            },
-        ],
-        payable: false,
-        stateMutability: "nonpayable",
         type: "function",
-    },
-    {
-        constant: false,
         inputs: [
             {
                 name: "dst",
@@ -309,14 +287,37 @@ const _abi = [
                 type: "uint256",
             },
         ],
+        outputs: [
+            {
+                name: "",
+                type: "bool",
+            },
+        ],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
         name: "push",
+        type: "function",
+        inputs: [
+            {
+                name: "dst",
+                type: "address",
+            },
+            {
+                name: "wad",
+                type: "uint256",
+            },
+        ],
         outputs: [],
         payable: false,
+        constant: false,
         stateMutability: "nonpayable",
-        type: "function",
     },
     {
-        constant: false,
+        name: "move",
+        type: "function",
         inputs: [
             {
                 name: "src",
@@ -331,25 +332,24 @@ const _abi = [
                 type: "uint256",
             },
         ],
-        name: "move",
         outputs: [],
         payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
         constant: false,
-        inputs: [],
-        name: "start",
-        outputs: [],
-        payable: false,
         stateMutability: "nonpayable",
-        type: "function",
     },
     {
-        constant: true,
+        name: "start",
+        type: "function",
         inputs: [],
+        outputs: [],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
         name: "authority",
+        type: "function",
+        inputs: [],
         outputs: [
             {
                 name: "",
@@ -357,18 +357,18 @@ const _abi = [
             },
         ],
         payable: false,
+        constant: true,
         stateMutability: "view",
-        type: "function",
     },
     {
-        constant: false,
+        name: "approve",
+        type: "function",
         inputs: [
             {
                 name: "guy",
                 type: "address",
             },
         ],
-        name: "approve",
         outputs: [
             {
                 name: "",
@@ -376,11 +376,12 @@ const _abi = [
             },
         ],
         payable: false,
+        constant: false,
         stateMutability: "nonpayable",
-        type: "function",
     },
     {
-        constant: true,
+        name: "allowance",
+        type: "function",
         inputs: [
             {
                 name: "src",
@@ -391,7 +392,6 @@ const _abi = [
                 type: "address",
             },
         ],
-        name: "allowance",
         outputs: [
             {
                 name: "",
@@ -399,11 +399,12 @@ const _abi = [
             },
         ],
         payable: false,
+        constant: true,
         stateMutability: "view",
-        type: "function",
     },
     {
-        constant: false,
+        name: "pull",
+        type: "function",
         inputs: [
             {
                 name: "src",
@@ -414,13 +415,13 @@ const _abi = [
                 type: "uint256",
             },
         ],
-        name: "pull",
         outputs: [],
         payable: false,
+        constant: false,
         stateMutability: "nonpayable",
-        type: "function",
     },
     {
+        type: "constructor",
         inputs: [
             {
                 name: "symbol_",
@@ -429,146 +430,145 @@ const _abi = [
         ],
         payable: false,
         stateMutability: "nonpayable",
-        type: "constructor",
     },
     {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                name: "guy",
-                type: "address",
-            },
-            {
-                indexed: false,
-                name: "wad",
-                type: "uint256",
-            },
-        ],
         name: "Mint",
         type: "event",
-    },
-    {
-        anonymous: false,
         inputs: [
             {
-                indexed: true,
                 name: "guy",
                 type: "address",
+                indexed: true,
             },
             {
-                indexed: false,
                 name: "wad",
                 type: "uint256",
+                indexed: false,
             },
         ],
+        anonymous: false,
+    },
+    {
         name: "Burn",
         type: "event",
-    },
-    {
-        anonymous: false,
         inputs: [
             {
-                indexed: true,
-                name: "authority",
-                type: "address",
-            },
-        ],
-        name: "LogSetAuthority",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                name: "owner",
-                type: "address",
-            },
-        ],
-        name: "LogSetOwner",
-        type: "event",
-    },
-    {
-        anonymous: true,
-        inputs: [
-            {
-                indexed: true,
-                name: "sig",
-                type: "bytes4",
-            },
-            {
-                indexed: true,
                 name: "guy",
                 type: "address",
-            },
-            {
                 indexed: true,
-                name: "foo",
-                type: "bytes32",
             },
             {
-                indexed: true,
-                name: "bar",
-                type: "bytes32",
-            },
-            {
-                indexed: false,
                 name: "wad",
                 type: "uint256",
-            },
-            {
                 indexed: false,
-                name: "fax",
-                type: "bytes",
             },
         ],
-        name: "LogNote",
-        type: "event",
+        anonymous: false,
     },
     {
-        anonymous: false,
+        name: "LogSetAuthority",
+        type: "event",
         inputs: [
             {
-                indexed: true,
-                name: "from",
+                name: "authority",
                 type: "address",
-            },
-            {
                 indexed: true,
-                name: "to",
-                type: "address",
-            },
-            {
-                indexed: false,
-                name: "value",
-                type: "uint256",
             },
         ],
-        name: "Transfer",
-        type: "event",
+        anonymous: false,
     },
     {
-        anonymous: false,
+        name: "LogSetOwner",
+        type: "event",
         inputs: [
             {
-                indexed: true,
                 name: "owner",
                 type: "address",
-            },
-            {
                 indexed: true,
-                name: "spender",
-                type: "address",
-            },
-            {
-                indexed: false,
-                name: "value",
-                type: "uint256",
             },
         ],
+        anonymous: false,
+    },
+    {
+        name: "LogNote",
+        type: "event",
+        inputs: [
+            {
+                name: "sig",
+                type: "bytes4",
+                indexed: true,
+            },
+            {
+                name: "guy",
+                type: "address",
+                indexed: true,
+            },
+            {
+                name: "foo",
+                type: "bytes32",
+                indexed: true,
+            },
+            {
+                name: "bar",
+                type: "bytes32",
+                indexed: true,
+            },
+            {
+                name: "wad",
+                type: "uint256",
+                indexed: false,
+            },
+            {
+                name: "fax",
+                type: "bytes",
+                indexed: false,
+            },
+        ],
+        anonymous: true,
+    },
+    {
+        name: "Transfer",
+        type: "event",
+        inputs: [
+            {
+                name: "from",
+                type: "address",
+                indexed: true,
+            },
+            {
+                name: "to",
+                type: "address",
+                indexed: true,
+            },
+            {
+                name: "value",
+                type: "uint256",
+                indexed: false,
+            },
+        ],
+        anonymous: false,
+    },
+    {
         name: "Approval",
         type: "event",
+        inputs: [
+            {
+                name: "owner",
+                type: "address",
+                indexed: true,
+            },
+            {
+                name: "spender",
+                type: "address",
+                indexed: true,
+            },
+            {
+                name: "value",
+                type: "uint256",
+                indexed: false,
+            },
+        ],
+        anonymous: false,
     },
 ];
 class Mkr__factory {

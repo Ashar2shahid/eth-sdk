@@ -7,1607 +7,1607 @@ exports.ProxyStandardStorageSlot__factory = void 0;
 const ethers_1 = require("ethers");
 const _abi = [
     {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                internalType: "uint256",
-                name: "epoch",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "block",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "timestamp",
-                type: "uint256",
-            },
-        ],
         name: "Advance",
         type: "event",
-    },
-    {
-        anonymous: false,
         inputs: [
             {
+                name: "epoch",
+                type: "uint256",
                 indexed: true,
-                internalType: "address",
-                name: "account",
-                type: "address",
+                internalType: "uint256",
             },
             {
+                name: "block",
+                type: "uint256",
                 indexed: false,
                 internalType: "uint256",
-                name: "start",
-                type: "uint256",
             },
             {
+                name: "timestamp",
+                type: "uint256",
                 indexed: false,
                 internalType: "uint256",
-                name: "value",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "valueUnderlying",
-                type: "uint256",
             },
         ],
+        anonymous: false,
+    },
+    {
         name: "Bond",
         type: "event",
-    },
-    {
-        anonymous: false,
         inputs: [
             {
-                indexed: true,
-                internalType: "address",
                 name: "account",
                 type: "address",
-            },
-            {
                 indexed: true,
                 internalType: "address",
-                name: "candidate",
-                type: "address",
-            },
-        ],
-        name: "Commit",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                internalType: "address",
-                name: "owner",
-                type: "address",
             },
             {
-                indexed: true,
-                internalType: "address",
-                name: "spender",
-                type: "address",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "value",
-                type: "uint256",
-            },
-        ],
-        name: "CouponApproval",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                internalType: "uint256",
-                name: "epoch",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "couponsExpired",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "lessRedeemable",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "lessDebt",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "newBonded",
-                type: "uint256",
-            },
-        ],
-        name: "CouponExpiration",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                internalType: "address",
-                name: "account",
-                type: "address",
-            },
-            {
-                indexed: true,
-                internalType: "uint256",
-                name: "epoch",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "dollarAmount",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "couponAmount",
-                type: "uint256",
-            },
-        ],
-        name: "CouponPurchase",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                internalType: "address",
-                name: "account",
-                type: "address",
-            },
-            {
-                indexed: true,
-                internalType: "uint256",
-                name: "epoch",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "couponAmount",
-                type: "uint256",
-            },
-        ],
-        name: "CouponRedemption",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                internalType: "address",
-                name: "from",
-                type: "address",
-            },
-            {
-                indexed: true,
-                internalType: "address",
-                name: "to",
-                type: "address",
-            },
-            {
-                indexed: true,
-                internalType: "uint256",
-                name: "epoch",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "value",
-                type: "uint256",
-            },
-        ],
-        name: "CouponTransfer",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                internalType: "address",
-                name: "account",
-                type: "address",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "value",
-                type: "uint256",
-            },
-        ],
-        name: "Deposit",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                internalType: "address",
-                name: "account",
-                type: "address",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "amount",
-                type: "uint256",
-            },
-        ],
-        name: "Incentivization",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                internalType: "address",
-                name: "candidate",
-                type: "address",
-            },
-            {
-                indexed: true,
-                internalType: "address",
-                name: "account",
-                type: "address",
-            },
-            {
-                indexed: true,
-                internalType: "uint256",
                 name: "start",
                 type: "uint256",
-            },
-            {
                 indexed: false,
                 internalType: "uint256",
-                name: "period",
-                type: "uint256",
-            },
-        ],
-        name: "Proposal",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                internalType: "uint256",
-                name: "epoch",
-                type: "uint256",
             },
             {
-                indexed: false,
-                internalType: "uint256",
-                name: "price",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "newDebt",
-                type: "uint256",
-            },
-        ],
-        name: "SupplyDecrease",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                internalType: "uint256",
-                name: "epoch",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "price",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "newRedeemable",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "lessDebt",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "newBonded",
-                type: "uint256",
-            },
-        ],
-        name: "SupplyIncrease",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                internalType: "uint256",
-                name: "epoch",
-                type: "uint256",
-            },
-        ],
-        name: "SupplyNeutral",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                internalType: "address",
-                name: "from",
-                type: "address",
-            },
-            {
-                indexed: true,
-                internalType: "address",
-                name: "to",
-                type: "address",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
                 name: "value",
                 type: "uint256",
-            },
-        ],
-        name: "Transfer",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                internalType: "address",
-                name: "account",
-                type: "address",
-            },
-            {
                 indexed: false,
                 internalType: "uint256",
-                name: "start",
-                type: "uint256",
             },
             {
-                indexed: false,
-                internalType: "uint256",
-                name: "value",
-                type: "uint256",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
                 name: "valueUnderlying",
                 type: "uint256",
+                indexed: false,
+                internalType: "uint256",
             },
         ],
-        name: "Unbond",
-        type: "event",
+        anonymous: false,
     },
     {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                internalType: "address",
-                name: "implementation",
-                type: "address",
-            },
-        ],
-        name: "Upgraded",
+        name: "Commit",
         type: "event",
-    },
-    {
-        anonymous: false,
         inputs: [
             {
-                indexed: true,
-                internalType: "address",
                 name: "account",
                 type: "address",
-            },
-            {
                 indexed: true,
                 internalType: "address",
+            },
+            {
                 name: "candidate",
                 type: "address",
-            },
-            {
-                indexed: false,
-                internalType: "enum Candidate.Vote",
-                name: "vote",
-                type: "uint8",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "bonded",
-                type: "uint256",
-            },
-        ],
-        name: "Vote",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
                 indexed: true,
                 internalType: "address",
-                name: "account",
-                type: "address",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "value",
-                type: "uint256",
             },
         ],
-        name: "Withdraw",
+        anonymous: false,
+    },
+    {
+        name: "CouponApproval",
         type: "event",
-    },
-    {
-        constant: false,
-        inputs: [],
-        name: "advance",
-        outputs: [],
-        payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        constant: true,
         inputs: [
             {
-                internalType: "address",
                 name: "owner",
                 type: "address",
+                indexed: true,
+                internalType: "address",
             },
             {
-                internalType: "address",
                 name: "spender",
                 type: "address",
-            },
-        ],
-        name: "allowance",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
+                indexed: true,
                 internalType: "address",
-                name: "owner",
-                type: "address",
             },
             {
-                internalType: "address",
-                name: "spender",
-                type: "address",
-            },
-        ],
-        name: "allowanceCoupons",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: false,
-        inputs: [
-            {
-                internalType: "address",
-                name: "spender",
-                type: "address",
-            },
-            {
-                internalType: "uint256",
-                name: "amount",
-                type: "uint256",
-            },
-        ],
-        name: "approve",
-        outputs: [
-            {
-                internalType: "bool",
-                name: "",
-                type: "bool",
-            },
-        ],
-        payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        constant: false,
-        inputs: [
-            {
-                internalType: "address",
-                name: "spender",
-                type: "address",
-            },
-            {
-                internalType: "uint256",
-                name: "amount",
-                type: "uint256",
-            },
-        ],
-        name: "approveCoupons",
-        outputs: [],
-        payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "address",
-                name: "candidate",
-                type: "address",
-            },
-        ],
-        name: "approveFor",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "address",
-                name: "account",
-                type: "address",
-            },
-        ],
-        name: "balanceOf",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "address",
-                name: "account",
-                type: "address",
-            },
-        ],
-        name: "balanceOfBonded",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "address",
-                name: "account",
-                type: "address",
-            },
-            {
-                internalType: "uint256",
-                name: "epoch",
-                type: "uint256",
-            },
-        ],
-        name: "balanceOfCoupons",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "address",
-                name: "account",
-                type: "address",
-            },
-        ],
-        name: "balanceOfStaged",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: false,
-        inputs: [
-            {
-                internalType: "uint256",
                 name: "value",
                 type: "uint256",
+                indexed: false,
+                internalType: "uint256",
             },
         ],
-        name: "bond",
-        outputs: [],
-        payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
+        anonymous: false,
     },
     {
-        constant: true,
+        name: "CouponExpiration",
+        type: "event",
         inputs: [
             {
-                internalType: "uint256",
                 name: "epoch",
                 type: "uint256",
-            },
-        ],
-        name: "bootstrappingAt",
-        outputs: [
-            {
-                internalType: "bool",
-                name: "",
-                type: "bool",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "calculatePrice",
-        outputs: [
-            {
+                indexed: true,
                 internalType: "uint256",
-                name: "",
-                type: "uint256",
             },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "calculateReward",
-        outputs: [
             {
-                internalType: "uint256",
-                name: "",
+                name: "couponsExpired",
                 type: "uint256",
+                indexed: false,
+                internalType: "uint256",
+            },
+            {
+                name: "lessRedeemable",
+                type: "uint256",
+                indexed: false,
+                internalType: "uint256",
+            },
+            {
+                name: "lessDebt",
+                type: "uint256",
+                indexed: false,
+                internalType: "uint256",
+            },
+            {
+                name: "newBonded",
+                type: "uint256",
+                indexed: false,
+                internalType: "uint256",
             },
         ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
+        anonymous: false,
     },
     {
-        constant: false,
+        name: "CouponPurchase",
+        type: "event",
         inputs: [
             {
-                internalType: "address",
-                name: "candidate",
-                type: "address",
-            },
-        ],
-        name: "commit",
-        outputs: [],
-        payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "uint256",
-                name: "amount",
-                type: "uint256",
-            },
-        ],
-        name: "couponPremium",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "uint256",
-                name: "epoch",
-                type: "uint256",
-            },
-        ],
-        name: "couponsExpiration",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "decimals",
-        outputs: [
-            {
-                internalType: "uint8",
-                name: "",
-                type: "uint8",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: false,
-        inputs: [
-            {
-                internalType: "uint256",
-                name: "value",
-                type: "uint256",
-            },
-        ],
-        name: "deposit",
-        outputs: [],
-        payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "dollar",
-        outputs: [
-            {
-                internalType: "contract IDollar",
-                name: "",
-                type: "address",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: false,
-        inputs: [
-            {
-                internalType: "address",
-                name: "candidate",
-                type: "address",
-            },
-        ],
-        name: "emergencyCommit",
-        outputs: [],
-        payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "epoch",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "epochTime",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "uint256",
-                name: "epoch",
-                type: "uint256",
-            },
-        ],
-        name: "expiringCoupons",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "uint256",
-                name: "epoch",
-                type: "uint256",
-            },
-            {
-                internalType: "uint256",
-                name: "i",
-                type: "uint256",
-            },
-        ],
-        name: "expiringCouponsAtIndex",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "address",
                 name: "account",
                 type: "address",
-            },
-        ],
-        name: "fluidUntil",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "implementation",
-        outputs: [
-            {
+                indexed: true,
                 internalType: "address",
-                name: "impl",
-                type: "address",
             },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: false,
-        inputs: [],
-        name: "initialize",
-        outputs: [],
-        payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
             {
-                internalType: "address",
-                name: "candidate",
-                type: "address",
-            },
-        ],
-        name: "isInitialized",
-        outputs: [
-            {
-                internalType: "bool",
-                name: "",
-                type: "bool",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "address",
-                name: "candidate",
-                type: "address",
-            },
-        ],
-        name: "isNominated",
-        outputs: [
-            {
-                internalType: "bool",
-                name: "",
-                type: "bool",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "address",
-                name: "account",
-                type: "address",
-            },
-        ],
-        name: "lockedUntil",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "name",
-        outputs: [
-            {
-                internalType: "string",
-                name: "",
-                type: "string",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "oracle",
-        outputs: [
-            {
-                internalType: "contract IOracle",
-                name: "",
-                type: "address",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "uint256",
                 name: "epoch",
                 type: "uint256",
-            },
-        ],
-        name: "outstandingCoupons",
-        outputs: [
-            {
+                indexed: true,
                 internalType: "uint256",
-                name: "",
-                type: "uint256",
             },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
             {
-                internalType: "address",
-                name: "candidate",
-                type: "address",
-            },
-        ],
-        name: "periodFor",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "pool",
-        outputs: [
-            {
-                internalType: "address",
-                name: "",
-                type: "address",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: false,
-        inputs: [
-            {
-                internalType: "uint256",
                 name: "dollarAmount",
                 type: "uint256",
-            },
-        ],
-        name: "purchaseCoupons",
-        outputs: [
-            {
+                indexed: false,
                 internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "address",
-                name: "account",
-                type: "address",
             },
             {
-                internalType: "address",
-                name: "candidate",
-                type: "address",
-            },
-        ],
-        name: "recordedVote",
-        outputs: [
-            {
-                internalType: "enum Candidate.Vote",
-                name: "",
-                type: "uint8",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: false,
-        inputs: [
-            {
-                internalType: "uint256",
-                name: "couponEpoch",
-                type: "uint256",
-            },
-            {
-                internalType: "uint256",
                 name: "couponAmount",
                 type: "uint256",
-            },
-        ],
-        name: "redeemCoupons",
-        outputs: [],
-        payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "address",
-                name: "candidate",
-                type: "address",
-            },
-        ],
-        name: "rejectFor",
-        outputs: [
-            {
+                indexed: false,
                 internalType: "uint256",
-                name: "",
-                type: "uint256",
             },
         ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
+        anonymous: false,
     },
     {
-        constant: true,
+        name: "CouponRedemption",
+        type: "event",
         inputs: [
             {
-                internalType: "address",
-                name: "candidate",
-                type: "address",
-            },
-        ],
-        name: "startFor",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "address",
                 name: "account",
                 type: "address",
+                indexed: true,
+                internalType: "address",
             },
-        ],
-        name: "statusOf",
-        outputs: [
             {
-                internalType: "enum Account.Status",
-                name: "",
-                type: "uint8",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "symbol",
-        outputs: [
-            {
-                internalType: "string",
-                name: "",
-                type: "string",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "totalBonded",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
-            {
-                internalType: "uint256",
                 name: "epoch",
                 type: "uint256",
-            },
-        ],
-        name: "totalBondedAt",
-        outputs: [
-            {
+                indexed: true,
                 internalType: "uint256",
-                name: "",
+            },
+            {
+                name: "couponAmount",
                 type: "uint256",
+                indexed: false,
+                internalType: "uint256",
             },
         ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
+        anonymous: false,
     },
     {
-        constant: true,
-        inputs: [],
-        name: "totalCoupons",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "totalDebt",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "totalNet",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "totalRedeemable",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "totalStaged",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [],
-        name: "totalSupply",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        constant: false,
+        name: "CouponTransfer",
+        type: "event",
         inputs: [
             {
-                internalType: "address",
-                name: "recipient",
+                name: "from",
                 type: "address",
-            },
-            {
-                internalType: "uint256",
-                name: "amount",
-                type: "uint256",
-            },
-        ],
-        name: "transfer",
-        outputs: [
-            {
-                internalType: "bool",
-                name: "",
-                type: "bool",
-            },
-        ],
-        payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        constant: false,
-        inputs: [
-            {
+                indexed: true,
                 internalType: "address",
-                name: "sender",
-                type: "address",
             },
             {
+                name: "to",
+                type: "address",
+                indexed: true,
                 internalType: "address",
-                name: "recipient",
-                type: "address",
             },
             {
-                internalType: "uint256",
                 name: "epoch",
                 type: "uint256",
-            },
-            {
+                indexed: true,
                 internalType: "uint256",
-                name: "amount",
-                type: "uint256",
-            },
-        ],
-        name: "transferCoupons",
-        outputs: [],
-        payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        constant: false,
-        inputs: [
-            {
-                internalType: "address",
-                name: "sender",
-                type: "address",
             },
             {
-                internalType: "address",
-                name: "recipient",
-                type: "address",
-            },
-            {
-                internalType: "uint256",
-                name: "amount",
-                type: "uint256",
-            },
-        ],
-        name: "transferFrom",
-        outputs: [
-            {
-                internalType: "bool",
-                name: "",
-                type: "bool",
-            },
-        ],
-        payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        constant: false,
-        inputs: [
-            {
-                internalType: "uint256",
                 name: "value",
                 type: "uint256",
+                indexed: false,
+                internalType: "uint256",
             },
         ],
-        name: "unbond",
-        outputs: [],
-        payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
+        anonymous: false,
     },
     {
-        constant: false,
+        name: "Deposit",
+        type: "event",
         inputs: [
             {
-                internalType: "uint256",
+                name: "account",
+                type: "address",
+                indexed: true,
+                internalType: "address",
+            },
+            {
                 name: "value",
                 type: "uint256",
+                indexed: false,
+                internalType: "uint256",
             },
         ],
-        name: "unbondUnderlying",
-        outputs: [],
-        payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
+        anonymous: false,
     },
     {
-        constant: false,
+        name: "Incentivization",
+        type: "event",
         inputs: [
             {
+                name: "account",
+                type: "address",
+                indexed: true,
                 internalType: "address",
+            },
+            {
+                name: "amount",
+                type: "uint256",
+                indexed: false,
+                internalType: "uint256",
+            },
+        ],
+        anonymous: false,
+    },
+    {
+        name: "Proposal",
+        type: "event",
+        inputs: [
+            {
                 name: "candidate",
                 type: "address",
+                indexed: true,
+                internalType: "address",
             },
             {
-                internalType: "enum Candidate.Vote",
+                name: "account",
+                type: "address",
+                indexed: true,
+                internalType: "address",
+            },
+            {
+                name: "start",
+                type: "uint256",
+                indexed: true,
+                internalType: "uint256",
+            },
+            {
+                name: "period",
+                type: "uint256",
+                indexed: false,
+                internalType: "uint256",
+            },
+        ],
+        anonymous: false,
+    },
+    {
+        name: "SupplyDecrease",
+        type: "event",
+        inputs: [
+            {
+                name: "epoch",
+                type: "uint256",
+                indexed: true,
+                internalType: "uint256",
+            },
+            {
+                name: "price",
+                type: "uint256",
+                indexed: false,
+                internalType: "uint256",
+            },
+            {
+                name: "newDebt",
+                type: "uint256",
+                indexed: false,
+                internalType: "uint256",
+            },
+        ],
+        anonymous: false,
+    },
+    {
+        name: "SupplyIncrease",
+        type: "event",
+        inputs: [
+            {
+                name: "epoch",
+                type: "uint256",
+                indexed: true,
+                internalType: "uint256",
+            },
+            {
+                name: "price",
+                type: "uint256",
+                indexed: false,
+                internalType: "uint256",
+            },
+            {
+                name: "newRedeemable",
+                type: "uint256",
+                indexed: false,
+                internalType: "uint256",
+            },
+            {
+                name: "lessDebt",
+                type: "uint256",
+                indexed: false,
+                internalType: "uint256",
+            },
+            {
+                name: "newBonded",
+                type: "uint256",
+                indexed: false,
+                internalType: "uint256",
+            },
+        ],
+        anonymous: false,
+    },
+    {
+        name: "SupplyNeutral",
+        type: "event",
+        inputs: [
+            {
+                name: "epoch",
+                type: "uint256",
+                indexed: true,
+                internalType: "uint256",
+            },
+        ],
+        anonymous: false,
+    },
+    {
+        name: "Transfer",
+        type: "event",
+        inputs: [
+            {
+                name: "from",
+                type: "address",
+                indexed: true,
+                internalType: "address",
+            },
+            {
+                name: "to",
+                type: "address",
+                indexed: true,
+                internalType: "address",
+            },
+            {
+                name: "value",
+                type: "uint256",
+                indexed: false,
+                internalType: "uint256",
+            },
+        ],
+        anonymous: false,
+    },
+    {
+        name: "Unbond",
+        type: "event",
+        inputs: [
+            {
+                name: "account",
+                type: "address",
+                indexed: true,
+                internalType: "address",
+            },
+            {
+                name: "start",
+                type: "uint256",
+                indexed: false,
+                internalType: "uint256",
+            },
+            {
+                name: "value",
+                type: "uint256",
+                indexed: false,
+                internalType: "uint256",
+            },
+            {
+                name: "valueUnderlying",
+                type: "uint256",
+                indexed: false,
+                internalType: "uint256",
+            },
+        ],
+        anonymous: false,
+    },
+    {
+        name: "Upgraded",
+        type: "event",
+        inputs: [
+            {
+                name: "implementation",
+                type: "address",
+                indexed: true,
+                internalType: "address",
+            },
+        ],
+        anonymous: false,
+    },
+    {
+        name: "Vote",
+        type: "event",
+        inputs: [
+            {
+                name: "account",
+                type: "address",
+                indexed: true,
+                internalType: "address",
+            },
+            {
+                name: "candidate",
+                type: "address",
+                indexed: true,
+                internalType: "address",
+            },
+            {
                 name: "vote",
                 type: "uint8",
+                indexed: false,
+                internalType: "enum Candidate.Vote",
             },
-        ],
-        name: "vote",
-        outputs: [],
-        payable: false,
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        constant: true,
-        inputs: [
             {
-                internalType: "address",
-                name: "candidate",
-                type: "address",
-            },
-        ],
-        name: "votesFor",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
+                name: "bonded",
                 type: "uint256",
+                indexed: false,
+                internalType: "uint256",
             },
         ],
-        payable: false,
-        stateMutability: "view",
-        type: "function",
+        anonymous: false,
     },
     {
-        constant: false,
+        name: "Withdraw",
+        type: "event",
         inputs: [
             {
-                internalType: "uint256",
+                name: "account",
+                type: "address",
+                indexed: true,
+                internalType: "address",
+            },
+            {
                 name: "value",
                 type: "uint256",
+                indexed: false,
+                internalType: "uint256",
             },
         ],
-        name: "withdraw",
+        anonymous: false,
+    },
+    {
+        name: "advance",
+        type: "function",
+        inputs: [],
         outputs: [],
         payable: false,
+        constant: false,
         stateMutability: "nonpayable",
+    },
+    {
+        name: "allowance",
         type: "function",
+        inputs: [
+            {
+                name: "owner",
+                type: "address",
+                internalType: "address",
+            },
+            {
+                name: "spender",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "allowanceCoupons",
+        type: "function",
+        inputs: [
+            {
+                name: "owner",
+                type: "address",
+                internalType: "address",
+            },
+            {
+                name: "spender",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "approve",
+        type: "function",
+        inputs: [
+            {
+                name: "spender",
+                type: "address",
+                internalType: "address",
+            },
+            {
+                name: "amount",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "bool",
+                internalType: "bool",
+            },
+        ],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
+        name: "approveCoupons",
+        type: "function",
+        inputs: [
+            {
+                name: "spender",
+                type: "address",
+                internalType: "address",
+            },
+            {
+                name: "amount",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
+        name: "approveFor",
+        type: "function",
+        inputs: [
+            {
+                name: "candidate",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "balanceOf",
+        type: "function",
+        inputs: [
+            {
+                name: "account",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "balanceOfBonded",
+        type: "function",
+        inputs: [
+            {
+                name: "account",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "balanceOfCoupons",
+        type: "function",
+        inputs: [
+            {
+                name: "account",
+                type: "address",
+                internalType: "address",
+            },
+            {
+                name: "epoch",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "balanceOfStaged",
+        type: "function",
+        inputs: [
+            {
+                name: "account",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "bond",
+        type: "function",
+        inputs: [
+            {
+                name: "value",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
+        name: "bootstrappingAt",
+        type: "function",
+        inputs: [
+            {
+                name: "epoch",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "bool",
+                internalType: "bool",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "calculatePrice",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "calculateReward",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "commit",
+        type: "function",
+        inputs: [
+            {
+                name: "candidate",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
+        name: "couponPremium",
+        type: "function",
+        inputs: [
+            {
+                name: "amount",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "couponsExpiration",
+        type: "function",
+        inputs: [
+            {
+                name: "epoch",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "decimals",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "uint8",
+                internalType: "uint8",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "deposit",
+        type: "function",
+        inputs: [
+            {
+                name: "value",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
+        name: "dollar",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "address",
+                internalType: "contract IDollar",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "emergencyCommit",
+        type: "function",
+        inputs: [
+            {
+                name: "candidate",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
+        name: "epoch",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "epochTime",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "expiringCoupons",
+        type: "function",
+        inputs: [
+            {
+                name: "epoch",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "expiringCouponsAtIndex",
+        type: "function",
+        inputs: [
+            {
+                name: "epoch",
+                type: "uint256",
+                internalType: "uint256",
+            },
+            {
+                name: "i",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "fluidUntil",
+        type: "function",
+        inputs: [
+            {
+                name: "account",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "implementation",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "impl",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "initialize",
+        type: "function",
+        inputs: [],
+        outputs: [],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
+        name: "isInitialized",
+        type: "function",
+        inputs: [
+            {
+                name: "candidate",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "bool",
+                internalType: "bool",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "isNominated",
+        type: "function",
+        inputs: [
+            {
+                name: "candidate",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "bool",
+                internalType: "bool",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "lockedUntil",
+        type: "function",
+        inputs: [
+            {
+                name: "account",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "name",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "string",
+                internalType: "string",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "oracle",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "address",
+                internalType: "contract IOracle",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "outstandingCoupons",
+        type: "function",
+        inputs: [
+            {
+                name: "epoch",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "periodFor",
+        type: "function",
+        inputs: [
+            {
+                name: "candidate",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "pool",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "purchaseCoupons",
+        type: "function",
+        inputs: [
+            {
+                name: "dollarAmount",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
+        name: "recordedVote",
+        type: "function",
+        inputs: [
+            {
+                name: "account",
+                type: "address",
+                internalType: "address",
+            },
+            {
+                name: "candidate",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint8",
+                internalType: "enum Candidate.Vote",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "redeemCoupons",
+        type: "function",
+        inputs: [
+            {
+                name: "couponEpoch",
+                type: "uint256",
+                internalType: "uint256",
+            },
+            {
+                name: "couponAmount",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
+        name: "rejectFor",
+        type: "function",
+        inputs: [
+            {
+                name: "candidate",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "startFor",
+        type: "function",
+        inputs: [
+            {
+                name: "candidate",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "statusOf",
+        type: "function",
+        inputs: [
+            {
+                name: "account",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint8",
+                internalType: "enum Account.Status",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "symbol",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "string",
+                internalType: "string",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "totalBonded",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "totalBondedAt",
+        type: "function",
+        inputs: [
+            {
+                name: "epoch",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "totalCoupons",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "totalDebt",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "totalNet",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "totalRedeemable",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "totalStaged",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "totalSupply",
+        type: "function",
+        inputs: [],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "transfer",
+        type: "function",
+        inputs: [
+            {
+                name: "recipient",
+                type: "address",
+                internalType: "address",
+            },
+            {
+                name: "amount",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "bool",
+                internalType: "bool",
+            },
+        ],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
+        name: "transferCoupons",
+        type: "function",
+        inputs: [
+            {
+                name: "sender",
+                type: "address",
+                internalType: "address",
+            },
+            {
+                name: "recipient",
+                type: "address",
+                internalType: "address",
+            },
+            {
+                name: "epoch",
+                type: "uint256",
+                internalType: "uint256",
+            },
+            {
+                name: "amount",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
+        name: "transferFrom",
+        type: "function",
+        inputs: [
+            {
+                name: "sender",
+                type: "address",
+                internalType: "address",
+            },
+            {
+                name: "recipient",
+                type: "address",
+                internalType: "address",
+            },
+            {
+                name: "amount",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "bool",
+                internalType: "bool",
+            },
+        ],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
+        name: "unbond",
+        type: "function",
+        inputs: [
+            {
+                name: "value",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
+        name: "unbondUnderlying",
+        type: "function",
+        inputs: [
+            {
+                name: "value",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
+        name: "vote",
+        type: "function",
+        inputs: [
+            {
+                name: "candidate",
+                type: "address",
+                internalType: "address",
+            },
+            {
+                name: "vote",
+                type: "uint8",
+                internalType: "enum Candidate.Vote",
+            },
+        ],
+        outputs: [],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
+    },
+    {
+        name: "votesFor",
+        type: "function",
+        inputs: [
+            {
+                name: "candidate",
+                type: "address",
+                internalType: "address",
+            },
+        ],
+        outputs: [
+            {
+                name: "",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        payable: false,
+        constant: true,
+        stateMutability: "view",
+    },
+    {
+        name: "withdraw",
+        type: "function",
+        inputs: [
+            {
+                name: "value",
+                type: "uint256",
+                internalType: "uint256",
+            },
+        ],
+        outputs: [],
+        payable: false,
+        constant: false,
+        stateMutability: "nonpayable",
     },
 ];
 class ProxyStandardStorageSlot__factory {
