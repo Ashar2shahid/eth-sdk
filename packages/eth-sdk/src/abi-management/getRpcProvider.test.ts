@@ -12,7 +12,7 @@ describe(getRpcProvider.name, () => {
   it('defaults to a built-in URL', () => {
     const provider = getRpcProvider(config, 'mainnet') as JsonRpcProvider
 
-    expect(provider._getConnection().url).toEqual('https://mainnet.infura.io/v3/0993a4f4500c4fff88649d28b331898c')
+    expect(provider._getConnection().url).toEqual('https://rpc.mevblocker.io')
   })
 
   it('uses the RPC url from config', () => {

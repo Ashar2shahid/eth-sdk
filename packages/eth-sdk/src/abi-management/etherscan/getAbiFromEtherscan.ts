@@ -1,8 +1,8 @@
-import type { Address } from '../../config'
+import type { Address, NetworkIds } from '../../config'
 import { FetchJson } from '../../peripherals/fetchJson'
 import type { Abi } from '../../types'
 import type { URLString } from '../../utils/utility-types'
-import { isUserProvidedNetwork, NetworkSymbol } from '../networks'
+import { isUserProvidedNetwork, NetworkSymbol, symbolToNetworkId } from '../networks'
 import {
   ExplorerEndpointConfig,
   predefinedExplorerEndpoints,
@@ -32,19 +32,22 @@ export async function getAbiFromEtherscan(
 function createAPIUrl(
   networkSymbol: NetworkSymbol,
   address: Address,
-  { etherscanKeys, etherscanURLs, etherscanKey }: EtherscanConfig,
+  { etherscanKeys, etherscanURLs, etherscanKey, networkIds }: EtherscanConfig,
 ) {
+  const networkId = isUserProvidedNetwork(networkSymbol, networkIds)
+    ? networkIds[networkSymbol]
+    : symbolToNetworkId[networkSymbol]
+
   const apiKey =
     etherscanKey ||
     etherscanKeys[networkSymbol] ||
     (predefinedExplorerEndpoints as { [K in string]?: ExplorerEndpointConfig })[networkSymbol]?.apiKey
 
-  const apiUrl = getEtherscanLinkFromNetworkSymbol(networkSymbol, etherscanURLs)
-  if (!apiUrl) {
-    throw new Error(`Can't find network info for ${networkSymbol}`)
-  }
+  const apiUrl = getEtherscanLinkFromNetworkSymbol(networkSymbol, etherscanURLs) ?? 'https://api.etherscan.io/api'
 
-  return `${apiUrl}?module=contract&action=getabi&address=${address}${apiKey ? `&apikey=${apiKey}` : ''}`
+  return `${apiUrl}?chainid=${networkId}&module=contract&action=getabi&address=${address}${
+    apiKey ? `&apikey=${apiKey}` : ''
+  }`
 }
 
 function getEtherscanLinkFromNetworkSymbol(
@@ -71,4 +74,5 @@ interface EtherscanConfig {
   etherscanKey?: string | undefined
   etherscanKeys: UserEtherscanKeys
   etherscanURLs: UserEtherscanURLs
+  networkIds: NetworkIds
 }

@@ -3,12 +3,10 @@ import { JsonRpcProvider, Provider } from 'ethers'
 import { EthSdkConfig, RpcURLs } from '../config'
 import { NetworkSymbol } from './networks'
 
-const INFURA_PROJECT_URL = '0993a4f4500c4fff88649d28b331898c'
-
 const rpcProviders: RpcURLs = {
-  mainnet: `https://mainnet.infura.io/v3/${INFURA_PROJECT_URL}`,
-  holesky: `https://holesky.infura.io/v3/${INFURA_PROJECT_URL}`,
-  sepolia: `https://sepolia.infura.io/v3/${INFURA_PROJECT_URL}`,
+  mainnet: `https://rpc.mevblocker.io`,
+  holesky: `https://1rpc.io/holesky`,
+  sepolia: `https://eth-sepolia.api.onfinality.io/public`,
 }
 
 export function getRpcProvider(config: EthSdkConfig, network: NetworkSymbol): RpcProvider | null {
