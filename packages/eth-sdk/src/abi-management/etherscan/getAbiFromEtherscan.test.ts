@@ -20,7 +20,7 @@ describe(getAbiFromEtherscan.name, () => {
 
     expect(actual).toEqual(RETURNED_ABI)
     expect(fetch).toHaveBeenCalledWith([
-      `https://api.abi.pub/v1/chains/1/etherscan?module=contract&action=getabi&address=${DAI_ADDRESS}&apikey=${apiKey}`,
+      'https://api.abi.pub/v1/chains/1/etherscan?chainid=1&module=contract&action=getabi&address=0x6B175474E89094C44Da98b954EedeAC495271d0F&apikey={{ API_KEY }}',
     ])
   })
 
@@ -49,8 +49,9 @@ describe(getAbiFromEtherscan.name, () => {
     )
 
     expect(actual).toEqual(RETURNED_ABI)
+
     expect(fetch).toHaveBeenCalledWith([
-      `https://dethcryptoscan.test/api/v1?chainid=1&module=contract&action=getabi&address=${ADDRESS_ZERO}&apikey=${apiKey}`,
+      'https://dethcryptoscan.test/api/v1?chainid=12345678&module=contract&action=getabi&address=0x0000000000000000000000000000000000000000&apikey=woop',
     ])
   })
 
@@ -66,13 +67,13 @@ describe(getAbiFromEtherscan.name, () => {
     await getAbiFromEtherscan('mainnet', ADDRESS_ZERO, config, fetch)
 
     expect(fetch).toHaveBeenCalledWith([
-      `https://api.abi.pub/v1/chains/1/etherscan?module=contract&action=getabi&address=${ADDRESS_ZERO}&apikey=one-mainnet-key`,
+      `https://api.abi.pub/v1/chains/1/etherscan?chainid=1&module=contract&action=getabi&address=${ADDRESS_ZERO}&apikey=one-mainnet-key`,
     ])
 
     await getAbiFromEtherscan('polygon', ADDRESS_ZERO, config, fetch)
 
     expect(fetch).toHaveBeenCalledWith([
-      `https://api.abi.pub/v1/chains/137/etherscan?module=contract&action=getabi&address=${ADDRESS_ZERO}&apikey=two-polygon-key`,
+      `https://api.abi.pub/v1/chains/137/etherscan?chainid=137&module=contract&action=getabi&address=${ADDRESS_ZERO}&apikey=two-polygon-key`,
     ])
   })
 
@@ -84,7 +85,7 @@ describe(getAbiFromEtherscan.name, () => {
     await getAbiFromEtherscan('avalanche', ADDRESS_ZERO, config, fetch)
 
     expect(fetch).toHaveBeenCalledWith([
-      `https://api.abi.pub/v1/chains/43114/etherscan?module=contract&action=getabi&address=${ADDRESS_ZERO}`,
+      `https://api.abi.pub/v1/chains/43114/etherscan?chainid=43114&module=contract&action=getabi&address=${ADDRESS_ZERO}`,
     ])
   })
 })
