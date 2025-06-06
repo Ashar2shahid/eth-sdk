@@ -18,6 +18,12 @@ export enum NetworkID {
   SEPOLIA = 11155111,
   BASE_SEPOLIA = 84532,
   ZKEVM = 1101,
+  UNICHAIN = 130,
+  WORLDCHAIN = 480,
+  LINEA = 59144,
+  INK = 57073,
+  BLAST = 81457,
+  FLARE = 14,
 }
 
 export const networkIDtoSymbol = {
@@ -36,6 +42,12 @@ export const networkIDtoSymbol = {
   [NetworkID.BERACHAIN]: 'berachain',
   [NetworkID.MANTLE]: 'mantle',
   [NetworkID.ZKEVM]: 'zkevm',
+  [NetworkID.UNICHAIN]: 'unichain',
+  [NetworkID.WORLDCHAIN]: 'worldchain',
+  [NetworkID.LINEA]: 'linea',
+  [NetworkID.INK]: 'ink',
+  [NetworkID.BLAST]: 'blast',
+  [NetworkID.FLARE]: 'flare',
 } as const
 
 export type UserProvidedNetworkSymbol = Opaque<string, 'UserProvidedNetworkSymbol'>

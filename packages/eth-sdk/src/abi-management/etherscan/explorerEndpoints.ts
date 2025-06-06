@@ -65,6 +65,30 @@ export const predefinedExplorerEndpoints: PredefinedExplorerEndpoints = {
     url: makeAbiPubUrl(NetworkID.ZKEVM),
     apiKey: '',
   },
+  unichain: {
+    url: makeAbiPubUrl(NetworkID.UNICHAIN),
+    apiKey: '',
+  },
+  worldchain: {
+    url: makeAbiPubUrl(NetworkID.WORLDCHAIN),
+    apiKey: '',
+  },
+  linea: {
+    url: makeAbiPubUrl(NetworkID.LINEA),
+    apiKey: '',
+  },
+  ink: {
+    url: makeAbiPubUrl(NetworkID.INK),
+    apiKey: '',
+  },
+  blast: {
+    url: makeAbiPubUrl(NetworkID.BLAST),
+    apiKey: '',
+  },
+  flare: {
+    url: makeAbiPubUrl(NetworkID.FLARE),
+    apiKey: '',
+  },
 }
 
 interface PredefinedExplorerEndpoints extends Record<PredefinedNetworkSymbol, ExplorerEndpointConfig> {}
