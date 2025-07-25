@@ -1,5 +1,11 @@
 # @gnosis-guild/eth-sdk
 
+## 0.3.10
+
+### Patch Changes
+
+- 502b697: feat: add unichain, world chain, linea, ink, blast, flare
+
 ## 0.3.9
 
 ### Patch Changes
