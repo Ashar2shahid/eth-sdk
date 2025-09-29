@@ -2,7 +2,7 @@ import type { Opaque } from 'ts-essentials'
 import type { ZodTypeDef } from 'zod'
 import { z } from 'zod'
 
-import { networkIDtoShortName,NetworkSymbol } from '../abi-management/networks'
+import { networkIDtoShortName, NetworkSymbol } from '../abi-management/networks'
 import { NestedDict } from '../utils/utility-types'
 
 const DEFAULT_OUTPUT_PATH = './node_modules/.gnosisguild/eth-sdk-client'
