@@ -1,5 +1,4 @@
 import debug from 'debug'
-import { camelCase } from 'lodash'
 import { join } from 'path'
 import { normalizeName } from 'typechain'
 
@@ -90,6 +89,14 @@ function generateBody(nestedAddresses: NestedAddresses, keys: string[], topLevel
   }
 
   return body.join('\n')
+}
+
+function camelCase(str: string): string {
+  return str
+    .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) => {
+      return index === 0 ? word.toLowerCase() : word.toUpperCase()
+    })
+    .replace(/\s+/g, '')
 }
 
 function pascalCase(str: string): string {

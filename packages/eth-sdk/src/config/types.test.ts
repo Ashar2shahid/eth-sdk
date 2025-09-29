@@ -58,23 +58,11 @@ describe('config types', () => {
             dai: ZeroAddress,
           },
         },
-        rpc: {
-          mainnet: 'https://cloudflare-eth.com',
-          'my-network': 'https://cloudflare-eth.com/my-network',
-        },
       }
 
       expect(parseEthSdkConfig(input)).toEqual({
         contracts: input.contracts as any,
         outputPath: expect.stringMatching(''),
-        etherscanKeys: {},
-        etherscanURLs: {},
-        rpc: {
-          mainnet: 'https://cloudflare-eth.com',
-          'my-network': 'https://cloudflare-eth.com/my-network',
-        },
-        abiSource: 'etherscan',
-        networkIds: {},
       })
     })
 

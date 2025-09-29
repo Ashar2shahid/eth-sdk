@@ -1,65 +1,34 @@
 import debug from 'debug'
 import { dirname, join } from 'path'
 
-import { EthSdkConfig } from '../config'
 import { traverseContractsMap } from '../config/traverse'
-import { fetchJson } from '../peripherals/fetchJson'
 import { Abi, EthSdkCtx } from '../types'
-import { detectProxy } from './detectProxy'
-import { getAbiFromEtherscan } from './etherscan/getAbiFromEtherscan'
-import { GetRpcProvider, getRpcProvider } from './getRpcProvider'
-import { getAbiFromSourcify } from './sourcify/getAbiFromSourcify'
+import { fetchAbi } from './abi'
 import { GetAbi } from './types'
 
 export type { GetAbi }
 
 export const d = debug('@gnosis-guild/eth-sdk:abi')
 
-export async function gatherABIs(
-  { config, fs, cliArgs }: EthSdkCtx,
-  getAbi: GetAbi = makeGetAbi(config),
-  getProvider: GetRpcProvider = getRpcProvider,
-) {
+export async function gatherABIs({ config, fs, cliArgs }: EthSdkCtx) {
   await traverseContractsMap(config.contracts, async (network, key, address) => {
     const fullAbiPath = join(cliArgs.workingDirPath, 'abis', network, ...key) + '.json'
     d(`Getting ABI for ${key.join('.')}`)
 
     if (!fs.exists(fullAbiPath)) {
-      d('ABI doesnt exist already. Querying etherscan')
-      let abi = await getAbi(network, address)
-
-      if (!config.noFollowProxies) {
-        const rpcProvider = getProvider(config, network)
-        if (rpcProvider) {
-          const detectedProxy = await detectProxy(address, abi, rpcProvider)
-          if (detectedProxy.isProxy) {
-            // Implementation ABI will usually contain proxy ABI,
-            // so just replacing is a good enough merging strategy.
-            abi = await getAbi(network, detectedProxy.implAddress)
-          }
-        } else {
-          console.warn(
-            `\n\nNo RPC URL found for network ${network}. Please add it to "config.rpc.${network}" to enable fetching proxy implementation ABIs.\n\n`,
-          )
-        }
-      }
+      d('ABI doesnt exist already. Fetching it')
+      const abi = await fetchAbi(network, address)
 
       await fs.ensureDir(dirname(fullAbiPath))
 
-      await fs.write(fullAbiPath, JSON.stringify(removeGasFields(abi)))
+      await fs.write(fullAbiPath, JSON.stringify(dedupeAbi(removeGasFields(abi))))
     }
   })
 }
 
-const makeGetAbi = (config: EthSdkConfig): GetAbi => {
-  switch (config.abiSource) {
-    case 'etherscan':
-      return (network, address) => getAbiFromEtherscan(network, address, config, fetchJson)
-    case 'sourcify': {
-      return (network, address) => getAbiFromSourcify(network, address, config.networkIds, fetchJson)
-    }
-  }
-}
-
 /** remove gas fields from all ABI fragments (ethers wrongly expects them as strings while they are actually numbers) */
 const removeGasFields = (abi: Abi): Abi => abi.map(({ gas, ...rest }) => rest)
+
+/** dedupe ABI fragments */
+const dedupeAbi = (abi: Abi): Abi =>
+  Array.from(new Set(abi.map((fragment) => JSON.stringify(fragment)))).map((fragment) => JSON.parse(fragment))

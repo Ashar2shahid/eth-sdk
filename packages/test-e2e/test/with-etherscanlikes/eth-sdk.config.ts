@@ -1,7 +1,6 @@
 import { defineConfig } from '../../../eth-sdk'
 
 export default defineConfig({
-  noFollowProxies: true,
   contracts: {
     mainnet: {
       'DAI Bridge': {

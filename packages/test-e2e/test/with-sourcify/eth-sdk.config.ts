@@ -12,5 +12,4 @@ export default defineConfig({
   networkIds: {
     notRopstenAtAll: 3,
   },
-  noFollowProxies: true,
 })

@@ -2,18 +2,10 @@ import type { Opaque } from 'ts-essentials'
 import type { ZodTypeDef } from 'zod'
 import { z } from 'zod'
 
-import type {
-  UserEtherscanKeys,
-  UserEtherscanURLs,
-  UserEtherscanURLsInput,
-} from '../abi-management/etherscan/explorerEndpoints'
-import { networkIDtoSymbol, NetworkSymbol, symbolToNetworkId } from '../abi-management/networks'
+import { NetworkSymbol, networkIDtoShortName } from '../abi-management/networks'
 import { NestedDict } from '../utils/utility-types'
 
-export type { UserEtherscanURLs, UserEtherscanURLsInput }
-
 const DEFAULT_OUTPUT_PATH = './node_modules/.gnosisguild/eth-sdk-client'
-const DEFAULT_ABI_SOURCE: AbiSource = 'etherscan'
 
 export type AddressInput = `0x${string}`
 
@@ -55,23 +47,6 @@ export type EthSdkContractsInput = { [key in NetworkSymbol | (string & {})]?: Ne
 export const ethSdKContractsSchema: z.ZodSchema<EthSdkContracts, ZodTypeDef, EthSdkContractsInput> =
   z.record(nestedAddressesSchema)
 
-const etherscanURLsSchema: z.ZodSchema<UserEtherscanURLs, ZodTypeDef, UserEtherscanURLsInput> = z.record(
-  z.string(),
-) as any
-
-const etherscanKeysSchema: z.ZodSchema<UserEtherscanKeys> = z.record(z.string())
-
-export type RpcURLs = { [key in NetworkSymbol | (string & {})]?: string }
-
-const rpcUrlsSchema: z.ZodSchema<RpcURLs> = z.record(z.string())
-
-const abiSourceSchema = z.union([z.literal('etherscan'), z.literal('sourcify')])
-export type AbiSource = z.infer<typeof abiSourceSchema>
-
-export type NetworkIds = { [key in NetworkSymbol | (string & {})]?: number }
-
-export const networkIdsSchema: z.ZodSchema<NetworkIds> = z.record(z.number())
-
 export const flagsSchema = z.object({
   tsNocheck: z.optional(z.boolean()),
   discriminateTypes: z.boolean(),
@@ -82,13 +57,6 @@ const ethSdkConfigSchema = z
   .object({
     contracts: ethSdKContractsSchema,
     outputPath: z.string().default(DEFAULT_OUTPUT_PATH),
-    etherscanKey: z.string().optional(),
-    etherscanKeys: etherscanKeysSchema.default({}),
-    etherscanURLs: etherscanURLsSchema.default({}),
-    rpc: rpcUrlsSchema.default({}),
-    noFollowProxies: z.boolean().optional(),
-    abiSource: abiSourceSchema.default(DEFAULT_ABI_SOURCE),
-    networkIds: networkIdsSchema.default({}),
     typechainFlags: flagsSchema.optional(),
   })
   .strict()
@@ -116,13 +84,13 @@ export function parseEthSdkConfig(data: unknown) {
     if (issue.code === 'invalid_union') {
       const [error] = issue.unionErrors[0].errors
 
-      if (error.code === 'invalid_type' && error.expected in symbolToNetworkId) {
+      if (error.code === 'invalid_type') {
         throw new Error(
           message +
             '.\n' +
             `Network "${error.received}" is not supported.\n` +
             'Supported networks are:' +
-            Object.values(networkIDtoSymbol)
+            Object.values(networkIDtoShortName)
               .sort()
               .reduce((acc, net) => acc + `\n  - ${net}`, ''),
         )
