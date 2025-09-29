@@ -1,5 +1,11 @@
 # test-e2e
 
+## 0.1.3
+
+### Patch Changes
+
+- 9e21898: fetch ABIs via abi.pub, use chain short names as network identifiers
+
 ## 0.1.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @gnosis-guild/eth-sdk
 
+## 0.4.0
+
+### Minor Changes
+
+- 9e21898: fetch ABIs via abi.pub, use chain short names as network identifiers
+
 ## 0.3.10
 
 ### Patch Changes
