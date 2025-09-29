@@ -1,6 +1,3 @@
-import { invert } from 'lodash'
-import { Opaque, SafeDictionary } from 'ts-essentials'
-
 export enum NetworkID {
   MAINNET = 1,
   GNOSIS = 100,
@@ -24,9 +21,41 @@ export enum NetworkID {
   INK = 57073,
   BLAST = 81457,
   FLARE = 14,
+  BOB = 60808,
+  HEMI = 43111,
+  KATANA = 747474,
 }
 
-export const networkIDtoSymbol = {
+export const networkIDtoShortName = {
+  [NetworkID.MAINNET]: 'eth',
+  [NetworkID.HOLESKY]: 'holesky', // todo
+  [NetworkID.SEPOLIA]: 'sep',
+  [NetworkID.GNOSIS]: 'gno',
+  [NetworkID.BASE]: 'base',
+  [NetworkID.BASE_SEPOLIA]: 'basesep',
+  [NetworkID.BSC]: 'bsc',
+  [NetworkID.OPTIMISTIC_ETHEREUM]: 'oeth',
+  [NetworkID.POLYGON]: 'matic',
+  [NetworkID.ARBITRUM_ONE]: 'arb1',
+  [NetworkID.AVALANCHE]: 'avax',
+  [NetworkID.CELO]: 'celo',
+  [NetworkID.SONIC]: 'sonic',
+  [NetworkID.BERACHAIN]: 'berachain',
+  [NetworkID.MANTLE]: 'mantle',
+  [NetworkID.ZKEVM]: 'zkevm',
+  [NetworkID.UNICHAIN]: 'unichain',
+  [NetworkID.WORLDCHAIN]: 'wc',
+  [NetworkID.BOB]: 'bob',
+  [NetworkID.HEMI]: 'hemi',
+  [NetworkID.KATANA]: 'katana',
+  [NetworkID.LINEA]: 'linea',
+  [NetworkID.INK]: 'ink',
+  [NetworkID.BLAST]: 'blast',
+  [NetworkID.FLARE]: 'flare',
+} as const
+
+// To keep backward compatibility with old network symbols
+export const networkIDtoLegacySymbol = {
   [NetworkID.MAINNET]: 'mainnet',
   [NetworkID.HOLESKY]: 'holesky',
   [NetworkID.SEPOLIA]: 'sepolia',
@@ -50,20 +79,10 @@ export const networkIDtoSymbol = {
   [NetworkID.FLARE]: 'flare',
 } as const
 
-export type UserProvidedNetworkSymbol = Opaque<string, 'UserProvidedNetworkSymbol'>
+export type NetworkShortName = (typeof networkIDtoShortName)[keyof typeof networkIDtoShortName]
+export type LegacyNetworkSymbol = (typeof networkIDtoLegacySymbol)[keyof typeof networkIDtoLegacySymbol]
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const UserProvidedNetworkSymbol = (s: string): UserProvidedNetworkSymbol => s as UserProvidedNetworkSymbol
+export type NetworkSymbol = NetworkShortName | LegacyNetworkSymbol
 
-export function isUserProvidedNetwork(
-  symbol: NetworkSymbol,
-  userNetworks: Record<UserProvidedNetworkSymbol, string | number | undefined>,
-): symbol is UserProvidedNetworkSymbol {
-  return !!(symbol in userNetworks && userNetworks[symbol as keyof typeof userNetworks])
-}
-
-export type PredefinedNetworkSymbol = (typeof networkIDtoSymbol)[keyof typeof networkIDtoSymbol]
-
-export type NetworkSymbol = UserProvidedNetworkSymbol | PredefinedNetworkSymbol
-
-export const symbolToNetworkId: SafeDictionary<NetworkID, PredefinedNetworkSymbol> = invert(networkIDtoSymbol) as any
+// export const shortNameToNetworkId: SafeDictionary<NetworkID, NetworkSymbol> = invert(networkIDtoShortName)
+// export const legacySymbolToNetworkId: SafeDictionary<NetworkID, NetworkSymbol> = invert(networkIDtoLegacySymbol)

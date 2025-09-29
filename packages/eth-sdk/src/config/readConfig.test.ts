@@ -2,7 +2,7 @@ import { expect, mockFn } from 'earljs'
 import proxyquire from 'proxyquire'
 import { assert, noop } from 'ts-essentials'
 
-import { createEthSdkConfig, EthSdkConfig, EthSdkConfigInput, EthSdkContracts, parseAddress } from '.'
+import { EthSdkConfig, EthSdkConfigInput, EthSdkContracts, parseAddress } from '.'
 import { readConfig, Require } from './readConfig'
 
 // #region fixtures
@@ -15,12 +15,6 @@ const contractsFixture: EthSdkContracts = {
 const configFixture: EthSdkConfig = {
   contracts: contractsFixture,
   outputPath: './node_modules/.gnosisguild/eth-sdk-client',
-  etherscanKey: 'CONFIG_ETHERSCAN_KEY',
-  etherscanKeys: {},
-  etherscanURLs: {},
-  rpc: {},
-  abiSource: 'etherscan',
-  networkIds: {},
 }
 // #endregion fixtures
 
@@ -32,7 +26,6 @@ describe('readConfig', () => {
       filePath,
       mockRequire(filePath, {
         contracts: contractsFixture,
-        etherscanKey: 'CONFIG_ETHERSCAN_KEY',
       }),
     )
 
@@ -65,7 +58,6 @@ describe('readConfig', () => {
           sepolia: { mkr: '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2' },
         },
         outputPath: './eth-sdk/client',
-        abiSource: 'sourcify',
       }),
     )
 
@@ -76,11 +68,6 @@ describe('readConfig', () => {
         },
       },
       outputPath: './eth-sdk/client',
-      etherscanKeys: {},
-      etherscanURLs: {},
-      rpc: {},
-      abiSource: 'sourcify',
-      networkIds: {},
     })
   })
 
@@ -119,27 +106,6 @@ describe('readConfig', () => {
     )
 
     expect(config).toEqual(configFixture)
-  })
-
-  it('reads networkIds', async () => {
-    const actual = await readConfig(
-      'config.js',
-      mockRequire('config.js', {
-        contracts: {},
-        networkIds: {
-          'my-network': 47,
-        },
-      }),
-    )
-
-    expect(actual).toEqual(
-      createEthSdkConfig({
-        contracts: {},
-        networkIds: {
-          'my-network': 47,
-        },
-      }),
-    )
   })
 })
 

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/gnosisguild/eth-sdk/blob/master/docs/logo.png?raw=true" width="100" alt="" role="presentation">
+  <img src="https://github.com/gnosisguild/eth-sdk/blob/master/docs/logo.png?raw=true" width="100" alt="" role="presentation" />
   <h3 align="center">eth-sdk</h3>
   <p align="center">Generate type-safe, lightweight SDK for your Ethereum smart contracts</p>
   <p align="center">The quickest and easiest way to interact with Ethereum</p>
@@ -23,6 +23,8 @@ eth-sdk has been created and maintained by deth (@dethcrypto).
 
 deth (@dethcrypto) MIT
 
+with contributions by Gnosis Guild (@gnosisguild) MIT
+
 ---
 
 - [Installation](#installation)
@@ -32,12 +34,6 @@ deth (@dethcrypto) MIT
   - [Configuration](#configuration)
     - [`contracts`](#contracts)
     - [`outputPath`](#outputpath)
-    - [`etherscanKeys`](#etherscankeys)
-    - [`etherscanURLs`](#etherscanurls)
-    - [`rpc`](#rpc)
-    - [`noFollowProxies`](#nofollowproxies)
-    - [`abiSource`](#abisource)
-    - [`networkIds`](#networkids)
 - [Examples](#examples)
   - [Videos](#videos)
 - [Motivation and use cases](#motivation-and-use-cases)
@@ -155,7 +151,7 @@ A map from network identifier into deeply nested key-value pairs of contract nam
 ```json
 {
   "contracts": {
-    "mainnet": {
+    "eth": {
       "dai": "0x6b175474e89094c44da98b954eedeac495271d0f",
       "dao": {
         "mkr": "0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2"
@@ -165,17 +161,19 @@ A map from network identifier into deeply nested key-value pairs of contract nam
 }
 ```
 
-Predefined network identifiers are:
+Supported network identifiers are:
 
 ```
-"mainnet"            "holesky"            "sepolia"
-"gnosis"             "optimism"           "arbitrumOne"
-"base"               "avalanche"          "bsc"
-"polygon"            "celo"
+"eth"                 "holesky"              "sep"
+"gno"                 "base"                 "basesep"
+"bsc"                 "oeth"                 "matic"
+"arb1"                "avax"                 "celo"
+"sonic"               "berachain"            "mantle"
+"zkevm"               "unichain"             "wc"
+"bob"                 "hemi"                 "katana"
+"linea"               "ink"                  "blast"
+"flare"
 ```
-
-You can use other networks, but you will need to configure Etherscan URLs for them in [`etherscanURLs`](#etherscanurls)
-or provide [`networkIds`](#networkids) when using Sourcify as `abiSource`.
 
 ### `outputPath`
 
@@ -188,88 +186,6 @@ Output directory for generated SDK.
   "outputPath": "./node_modules/.gnosisguild/eth-sdk"
 }
 ```
-
-### `etherscanKeys`
-
-Etherscan API keys
-
-```json
-{
-  "etherscanKeys": {
-    // API key for https://etherscan.io
-    "mainnet": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-    // API key for https://polygonscan.com
-    "polygon": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
-  }
-}
-```
-
-### `etherscanURLs`
-
-Key-value pairs of network identifier and Etherscan API URL to fetch ABIs from.
-
-```json
-{
-  "etherscanURLs": {
-    "helloworld": "https://api.etherscan.io/api"
-  },
-  "contracts": {
-    "helloworld": {}
-  }
-}
-```
-
-### `rpc`
-
-Configuration for Ethereum JSON-RPC provider needed for _following proxies_.
-
-```json
-{
-  "rpc": {
-    "mainnet": "https://mainnet.infura.io/v3/00000000000000000000000000000000"
-  }
-}
-```
-
-For every contract address, eth-sdk checks if it's a proxy, and if it is, it saves the ABI of the implementation
-contract instead of the ABI of the proxy.
-
-### `noFollowProxies`
-
-You can opt out of proxy following by setting `noFollowProxies` flag in your config to `true`.
-
-```json
-{
-  "noFollowProxies": true
-}
-```
-
-### `abiSource`
-
-_Default: `"etherscan"`_
-
-One of `"etherscan"`, `"sourcify"`. Specifies the source to fetch contract ABIs from.
-
-### `networkIds`
-
-As Sourcify and Etherscan endpoints requires network IDs, you will need to provide them when using a custom network.
-
-```json
-{
-  "abiSource": "sourcify",
-  "networkIds": {
-    "myNetwork": 3
-  },
-  "contracts": {
-    "myNetwork": {
-      "dai": "0x6b175474e89094c44da98b954eedeac495271d0f"
-    }
-  }
-}
-```
-
-`eth-sdk` already knows ids of 19 commonly used networks, including mainnet, testnets, Optimism and Arbitrum, so you
-won't need to provide them. You can find the list of all predefined networks in [`contracts`](#contracts) documentation.
 
 # Examples
 

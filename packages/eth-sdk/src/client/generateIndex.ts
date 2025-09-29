@@ -1,5 +1,4 @@
 import debug from 'debug'
-import { camelCase } from 'lodash'
 import { join } from 'path'
 import { normalizeName } from 'typechain'
 
@@ -90,6 +89,28 @@ function generateBody(nestedAddresses: NestedAddresses, keys: string[], topLevel
   }
 
   return body.join('\n')
+}
+
+function camelCase(str: string): string {
+  if (!str) return ''
+
+  // Normalize separators to spaces
+  let normalized = str.replace(/[^A-Za-z0-9]+/g, ' ')
+
+  // Split between lowercase/digit followed by uppercase (e.g., "bridgeContract")
+  normalized = normalized.replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+
+  // Split acronym followed by Capitalized word (e.g., "DAIBridge" -> "DAI Bridge")
+  normalized = normalized.replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
+
+  const parts = normalized.trim().split(/\s+/).filter(Boolean)
+
+  if (parts.length === 0) return ''
+
+  const toLower = (s: string) => s.toLowerCase()
+  const capitalize = (s: string) => (s ? s[0].toUpperCase() + s.slice(1).toLowerCase() : s)
+
+  return [toLower(parts[0]), ...parts.slice(1).map(capitalize)].join('')
 }
 
 function pascalCase(str: string): string {

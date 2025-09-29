@@ -1,39 +1,171 @@
-import { expect, mockFn } from 'earljs'
-import { Dictionary } from 'ts-essentials'
+import { expect } from 'earljs'
 
 import { mockFilesystem } from '../../test/filesystemMock'
-import { randomAddress } from '../../test/test-utils'
 import { createEthSdkConfig, parseAddress } from '../config'
 import { Abi, EthSdkCtx } from '../types'
-import { constrain } from '../utils/constrain'
-import { GetRpcProvider, RpcProvider } from './getRpcProvider'
-import { gatherABIs, GetAbi } from './index'
+import { gatherABIs } from './index'
 
 const fs = mockFilesystem({})
 
 describe(gatherABIs.name, () => {
-  const rpcProvider = {
-    call: mockFn<RpcProvider['call']>(),
-    getCode: mockFn<RpcProvider['getCode']>(),
-    getStorage: mockFn<RpcProvider['getStorage']>().resolvesTo('0x0'),
-  }
-
   it('writes abi to output path', async () => {
     const abi: Abi = [
       {
         constant: true,
         inputs: [],
         name: 'name',
-        outputs: [{ name: '', type: 'bytes32' }],
+        outputs: [{ name: '', type: 'string' }],
         payable: false,
         stateMutability: 'view',
         type: 'function',
       },
+      {
+        constant: false,
+        inputs: [
+          { name: 'guy', type: 'address' },
+          { name: 'wad', type: 'uint256' },
+        ],
+        name: 'approve',
+        outputs: [{ name: '', type: 'bool' }],
+        payable: false,
+        stateMutability: 'nonpayable',
+        type: 'function',
+      },
+      {
+        constant: true,
+        inputs: [],
+        name: 'totalSupply',
+        outputs: [{ name: '', type: 'uint256' }],
+        payable: false,
+        stateMutability: 'view',
+        type: 'function',
+      },
+      {
+        constant: false,
+        inputs: [
+          { name: 'src', type: 'address' },
+          { name: 'dst', type: 'address' },
+          { name: 'wad', type: 'uint256' },
+        ],
+        name: 'transferFrom',
+        outputs: [{ name: '', type: 'bool' }],
+        payable: false,
+        stateMutability: 'nonpayable',
+        type: 'function',
+      },
+      {
+        constant: false,
+        inputs: [{ name: 'wad', type: 'uint256' }],
+        name: 'withdraw',
+        outputs: [],
+        payable: false,
+        stateMutability: 'nonpayable',
+        type: 'function',
+      },
+      {
+        constant: true,
+        inputs: [],
+        name: 'decimals',
+        outputs: [{ name: '', type: 'uint8' }],
+        payable: false,
+        stateMutability: 'view',
+        type: 'function',
+      },
+      {
+        constant: true,
+        inputs: [{ name: '', type: 'address' }],
+        name: 'balanceOf',
+        outputs: [{ name: '', type: 'uint256' }],
+        payable: false,
+        stateMutability: 'view',
+        type: 'function',
+      },
+      {
+        constant: true,
+        inputs: [],
+        name: 'symbol',
+        outputs: [{ name: '', type: 'string' }],
+        payable: false,
+        stateMutability: 'view',
+        type: 'function',
+      },
+      {
+        constant: false,
+        inputs: [
+          { name: 'dst', type: 'address' },
+          { name: 'wad', type: 'uint256' },
+        ],
+        name: 'transfer',
+        outputs: [{ name: '', type: 'bool' }],
+        payable: false,
+        stateMutability: 'nonpayable',
+        type: 'function',
+      },
+      {
+        constant: false,
+        inputs: [],
+        name: 'deposit',
+        outputs: [],
+        payable: true,
+        stateMutability: 'payable',
+        type: 'function',
+      },
+      {
+        constant: true,
+        inputs: [
+          { name: '', type: 'address' },
+          { name: '', type: 'address' },
+        ],
+        name: 'allowance',
+        outputs: [{ name: '', type: 'uint256' }],
+        payable: false,
+        stateMutability: 'view',
+        type: 'function',
+      },
+      { payable: true, stateMutability: 'payable', type: 'fallback' },
+      {
+        anonymous: false,
+        inputs: [
+          { indexed: true, name: 'src', type: 'address' },
+          { indexed: true, name: 'guy', type: 'address' },
+          { indexed: false, name: 'wad', type: 'uint256' },
+        ],
+        name: 'Approval',
+        type: 'event',
+      },
+      {
+        anonymous: false,
+        inputs: [
+          { indexed: true, name: 'src', type: 'address' },
+          { indexed: true, name: 'dst', type: 'address' },
+          { indexed: false, name: 'wad', type: 'uint256' },
+        ],
+        name: 'Transfer',
+        type: 'event',
+      },
+      {
+        anonymous: false,
+        inputs: [
+          { indexed: true, name: 'dst', type: 'address' },
+          { indexed: false, name: 'wad', type: 'uint256' },
+        ],
+        name: 'Deposit',
+        type: 'event',
+      },
+      {
+        anonymous: false,
+        inputs: [
+          { indexed: true, name: 'src', type: 'address' },
+          { indexed: false, name: 'wad', type: 'uint256' },
+        ],
+        name: 'Withdrawal',
+        type: 'event',
+      },
     ]
-    const getAbi = mockFn((async () => abi) as GetAbi)
+
     const contracts = {
-      sepolia: {
-        dai: parseAddress('0x6B175474E89094C44Da98b954EedeAC495271d0F'),
+      eth: {
+        weth: parseAddress('0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'),
       },
     }
     const ctx: EthSdkCtx = {
@@ -41,111 +173,13 @@ describe(gatherABIs.name, () => {
       config: createEthSdkConfig({
         contracts,
         outputPath: 'outputPath',
-        etherscanKey: etherscanKeyFixture,
-        abiSource: 'etherscan',
       }),
       fs,
     }
 
-    await gatherABIs(ctx, getAbi, (): RpcProvider => rpcProvider)
+    await gatherABIs(ctx)
 
-    expect(fs.test.isDirectory('workdirPath/abis/sepolia')).toEqual(true)
-    expect(fs.test.readJson('workdirPath/abis/sepolia/dai.json')).toEqual(abi)
-    expect(getAbi).toHaveBeenCalledWith(['sepolia', contracts.sepolia.dai])
-  })
-
-  it('uses implementation abi instead of proxy abi', async () => {
-    const implementationAddr = randomAddress('0x111')
-    const contracts = {
-      sepolia: {
-        proxy: randomAddress('0x222'),
-      },
-    }
-    const ctx: EthSdkCtx = {
-      cliArgs: { workingDirPath: 'workdirPath' },
-      config: createEthSdkConfig({
-        contracts,
-        outputPath: 'outputPath',
-        etherscanKey: etherscanKeyFixture,
-      }),
-      fs,
-    }
-    const abis = constrain<Dictionary<Abi>>()({
-      proxy: [{ name: 'i-am-proxy' }],
-      implementation: [{ name: 'i-am-implementation' }],
-    })
-    const getAbi = mockFn((async (_net, addr) => {
-      return {
-        [contracts.sepolia.proxy]: abis.proxy,
-        [implementationAddr]: abis.implementation,
-      }[addr]
-    }) as GetAbi)
-    const getProvider = mockFn<GetRpcProvider>(() => ({
-      ...rpcProvider,
-      getCode: mockFn<RpcProvider['getCode']>().resolvesTo('0xfff'),
-      getStorage: mockFn<RpcProvider['getStorage']>().resolvesTo(implementationAddr),
-    }))
-
-    await gatherABIs(ctx, getAbi, getProvider)
-
-    expect(fs.test.readJson('workdirPath/abis/sepolia/proxy.json')).toEqual(abis.implementation)
-    expect(getProvider).toHaveBeenCalledWith([expect.anything(), 'sepolia'])
-  })
-
-  it('does not call any rpc provider method when config.noFollowProxies is true', async () => {
-    const fs = mockFilesystem({})
-    const rpcProvider = {
-      call: mockFn<RpcProvider['call']>().throws(new Error('.call should not be called')),
-      getCode: mockFn<RpcProvider['getCode']>().throws(new Error('.getCode should not be called')),
-      getStorage: mockFn<RpcProvider['getStorage']>().throws(new Error('.getStorage should not be called')),
-    }
-
-    const getAbi = mockFn((async () => []) as GetAbi)
-    const ctx: EthSdkCtx = {
-      cliArgs: { workingDirPath: 'workdirPath' },
-      config: createEthSdkConfig({
-        contracts: {
-          sepolia: {
-            dai: parseAddress('0x6B175474E89094C44Da98b954EedeAC495271d0F'),
-          },
-        },
-        noFollowProxies: true,
-      }),
-      fs,
-    }
-
-    await gatherABIs(ctx, getAbi, (): RpcProvider => rpcProvider)
-
-    expect(fs.test.readJson('workdirPath/abis/sepolia/dai.json')).toEqual([])
-  })
-
-  it('logs warning when rpc provider is not found', async () => {
-    const _consoleWarn = console.warn
-    const mockWarn = mockFn<typeof _consoleWarn>().returns(undefined)
-    console.warn = mockWarn
-
-    const ctx: EthSdkCtx = {
-      cliArgs: { workingDirPath: 'workdirPath' },
-      config: createEthSdkConfig({
-        contracts: {
-          sepolia: {
-            dai: parseAddress('0x6B175474E89094C44Da98b954EedeAC495271d0F'),
-          },
-        },
-      }),
-      fs: mockFilesystem({}),
-    }
-
-    const getProvider: GetRpcProvider = () => null
-
-    await gatherABIs(ctx, async () => [], getProvider)
-
-    expect(mockWarn).toHaveBeenCalledWith([
-      expect.stringMatching(`Please add it to "config.rpc.sepolia" to enable fetching proxy implementation ABIs`),
-    ])
-
-    console.warn = _consoleWarn
+    expect(fs.test.isDirectory('workdirPath/abis/eth')).toEqual(true)
+    expect(fs.test.readJson('workdirPath/abis/eth/weth.json')).toEqual(abi)
   })
 })
-
-const etherscanKeyFixture = 'CTX_CONFIG_ETHERSCAN_KEY'
