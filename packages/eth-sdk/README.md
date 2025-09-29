@@ -23,6 +23,8 @@ eth-sdk has been created and maintained by deth (@dethcrypto).
 
 deth (@dethcrypto) MIT
 
+with contributions by Gnosis Guild (@gnosisguild) MIT
+
 ---
 
 - [Installation](#installation)
