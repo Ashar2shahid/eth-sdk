@@ -92,11 +92,25 @@ function generateBody(nestedAddresses: NestedAddresses, keys: string[], topLevel
 }
 
 function camelCase(str: string): string {
-  return str
-    .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) => {
-      return index === 0 ? word.toLowerCase() : word.toUpperCase()
-    })
-    .replace(/\s+/g, '')
+  if (!str) return ''
+
+  // Normalize separators to spaces
+  let normalized = str.replace(/[^A-Za-z0-9]+/g, ' ')
+
+  // Split between lowercase/digit followed by uppercase (e.g., "bridgeContract")
+  normalized = normalized.replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+
+  // Split acronym followed by Capitalized word (e.g., "DAIBridge" -> "DAI Bridge")
+  normalized = normalized.replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
+
+  const parts = normalized.trim().split(/\s+/).filter(Boolean)
+
+  if (parts.length === 0) return ''
+
+  const toLower = (s: string) => s.toLowerCase()
+  const capitalize = (s: string) => (s ? s[0].toUpperCase() + s.slice(1).toLowerCase() : s)
+
+  return [toLower(parts[0]), ...parts.slice(1).map(capitalize)].join('')
 }
 
 function pascalCase(str: string): string {
