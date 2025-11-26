@@ -24,6 +24,7 @@ export enum NetworkID {
   BOB = 60808,
   HEMI = 43111,
   KATANA = 747474,
+  HYPEREVM = 999,
 }
 
 export const networkIDtoShortName = {
@@ -52,6 +53,7 @@ export const networkIDtoShortName = {
   [NetworkID.INK]: 'ink',
   [NetworkID.BLAST]: 'blast',
   [NetworkID.FLARE]: 'flare',
+  [NetworkID.HYPEREVM]: 'hyperevm',
 } as const
 
 // To keep backward compatibility with old network symbols
@@ -77,6 +79,7 @@ export const networkIDtoLegacySymbol = {
   [NetworkID.INK]: 'ink',
   [NetworkID.BLAST]: 'blast',
   [NetworkID.FLARE]: 'flare',
+  [NetworkID.HYPEREVM]: 'hyperEvm',
 } as const
 
 export type NetworkShortName = (typeof networkIDtoShortName)[keyof typeof networkIDtoShortName]
