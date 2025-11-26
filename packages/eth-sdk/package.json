@@ -1,11 +1,11 @@
 {
-  "name": "@gnosis-guild/eth-sdk",
-  "version": "0.4.0",
+  "name": "@ashar2shahid/eth-sdk",
+  "version": "0.4.1",
   "license": "MIT",
-  "description": "🛠 Generate type-safe, lightweight SDK for your Ethereum smart contracts",
+  "description": "🛠 Generate type-safe, lightweight SDK for your Ethereum smart contracts (with HyperEVM support)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gnosisguild/eth-sdk",
+    "url": "https://github.com/Ashar2shahid/eth-sdk",
     "directory": "packages/eth-sdk"
   },
   "keywords": [
